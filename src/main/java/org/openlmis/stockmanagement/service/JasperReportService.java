@@ -33,6 +33,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 import java.util.UUID;
 import java.util.function.Function;
 import javax.sql.DataSource;
@@ -56,6 +58,7 @@ import org.openlmis.stockmanagement.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 public class JasperReportService {
@@ -87,8 +90,12 @@ public class JasperReportService {
   @Value("${groupingSize}")
   private String groupingSize;
 
-  @Value("${defaultLocale}")
+  @Value("${defaultLocale:ru}")
   private String locale;
+
+  private Locale getLocale() {
+    return StringUtils.hasText(locale) ? new Locale(locale) : new Locale("ru");
+  }
 
   /**
    * Generate stock card report in PDF format.
@@ -104,11 +111,13 @@ public class JasperReportService {
 
     Collections.reverse(stockCardDto.getLineItems());
     Map<String, Object> params = new HashMap<>();
+    Locale locale = getLocale();
     params.put(PARAM_DATASOURCE, singletonList(stockCardDto));
     params.put("hasLot", stockCardDto.hasLot());
     params.put("dateFormat", dateFormat);
     params.put("decimalFormat", createDecimalFormat());
-    params.put(JRParameter.REPORT_LOCALE, new Locale(locale));
+    params.put(JRParameter.REPORT_LOCALE, locale);
+    params.put(JRParameter.REPORT_RESOURCE_BUNDLE, loadBundle("stockCard", locale));
 
     return fillAndExportReport(compileReportFromTemplateUrl(CARD_REPORT_URL), params);
   }
@@ -134,10 +143,12 @@ public class JasperReportService {
     params.put("showProgram", getCount(cards, card -> card.getProgram().getId().toString()) > 1);
     params.put("showFacility", getCount(cards, card -> card.getFacility().getId().toString()) > 1);
     params.put("showLot", cards.stream().anyMatch(card -> card.getLotId() != null));
+    Locale summaryLocale = getLocale();
     params.put("dateFormat", dateFormat);
     params.put("dateTimeFormat", dateTimeFormat);
     params.put("decimalFormat", createDecimalFormat());
-    params.put(JRParameter.REPORT_LOCALE, locale);
+    params.put(JRParameter.REPORT_LOCALE, summaryLocale);
+    params.put(JRParameter.REPORT_RESOURCE_BUNDLE, loadBundle("stockCardSummary", summaryLocale));
 
     return fillAndExportReport(compileReportFromTemplateUrl(CARD_SUMMARY_REPORT_URL), params);
   }
@@ -226,6 +237,14 @@ public class JasperReportService {
     } catch (ClassNotFoundException ex) {
       throw new JasperReportViewException(
           new Message(ERROR_CLASS_NOT_FOUND, JasperReport.class.getName()), ex);
+    }
+  }
+
+  private ResourceBundle loadBundle(String baseName, Locale resolvedLocale) {
+    try {
+      return ResourceBundle.getBundle(baseName, resolvedLocale, getClass().getClassLoader());
+    } catch (MissingResourceException e) {
+      return ResourceBundle.getBundle(baseName, Locale.ENGLISH, getClass().getClassLoader());
     }
   }
 

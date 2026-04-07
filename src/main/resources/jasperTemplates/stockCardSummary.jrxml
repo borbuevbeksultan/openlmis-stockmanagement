@@ -193,6 +193,7 @@
 						<datasetParameter name="showLot"><datasetParameterExpression><![CDATA[$P{showLot}]]></datasetParameterExpression></datasetParameter>
 						<datasetParameter name="dateFormat"><datasetParameterExpression><![CDATA[$P{dateFormat}]]></datasetParameterExpression></datasetParameter>
 						<datasetParameter name="decimalFormat"><datasetParameterExpression><![CDATA[$P{decimalFormat}]]></datasetParameterExpression></datasetParameter>
+						<datasetParameter name="REPORT_LOCALE"><datasetParameterExpression><![CDATA[$P{REPORT_LOCALE}]]></datasetParameterExpression></datasetParameter>
 						<dataSourceExpression><![CDATA[new JRBeanCollectionDataSource($P{stockCardSummaries})]]></dataSourceExpression>
 					</datasetRun>
 					<jr:column width="93" uuid="72fd2aee-eded-4f91-b865-2eed6c1f45c2">
@@ -303,7 +304,7 @@
 								<reportElement x="0" y="0" width="73" height="30" uuid="32fea3a9-1db4-4e09-90d0-49c214525ec5"/>
 								<box padding="2"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[DateTimeFormatter.ofPattern($P{dateFormat}).format(LocalDate.parse($F{lot}.getExpirationDate().toString()))]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{lot} != null && $F{lot}.getExpirationDate() != null ? DateTimeFormatter.ofPattern($P{dateFormat}).format($F{lot}.getExpirationDate()) : ""]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>

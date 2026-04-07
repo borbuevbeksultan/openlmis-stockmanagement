@@ -29,7 +29,10 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 import java.util.UUID;
 
 import net.sf.jasperreports.engine.JRParameter;
@@ -51,6 +54,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -102,7 +106,7 @@ public class PhysicalInventoryController {
   @Value("${groupingSize}")
   private String groupingSize;
 
-  @Value("${defaultLocale}")
+  @Value("${defaultLocale:ru}")
   private String locale;
 
   /**
@@ -198,7 +202,8 @@ public class PhysicalInventoryController {
   public ResponseEntity<byte[]> print(
       @PathVariable("id") UUID id,
       @RequestParam String format,
-      @RequestParam(required = false, defaultValue = "true") Boolean showInDoses
+      @RequestParam(required = false, defaultValue = "true") Boolean showInDoses,
+      @RequestParam(required = false) String locale
   ) {
     checkPermission(id);
     checkFormat(format.toLowerCase());
@@ -211,7 +216,7 @@ public class PhysicalInventoryController {
 
     byte[] bytes = jasperReportService.generateReport(
         printTemplate,
-        getParams(id, format, showInDoses)
+        getParams(id, format, showInDoses, locale)
     );
 
     MediaType mediaType;
@@ -250,7 +255,24 @@ public class PhysicalInventoryController {
     }
   }
 
-  private Map<String, Object> getParams(UUID eventId, String format, Boolean showInDoses) {   
+  private ResourceBundle loadBundle(String baseName, Locale resolvedLocale) {
+    try {
+      return ResourceBundle.getBundle(baseName, resolvedLocale,
+          getClass().getClassLoader());
+    } catch (MissingResourceException e) {
+      return ResourceBundle.getBundle(baseName, Locale.ENGLISH,
+          getClass().getClassLoader());
+    }
+  }
+
+  private Locale getLocale(String requestLocale) {
+    String effective = StringUtils.hasText(requestLocale) ? requestLocale : locale;
+    return StringUtils.hasText(effective) ? new Locale(effective) : new Locale("ru");
+  }
+
+  private Map<String, Object> getParams(UUID eventId, String format,
+      Boolean showInDoses, String requestLocale) {
+    final Locale resolvedLocale = getLocale(requestLocale);
     Map<String, Object> params = ReportUtils.createParametersMap();
     String formatId = "'" + eventId + "'";
     DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
@@ -264,7 +286,12 @@ public class PhysicalInventoryController {
     params.put("format", format);
     params.put("decimalFormat", decimalFormat);
     params.put("showInDoses", showInDoses);
-    params.put(JRParameter.REPORT_LOCALE, locale);
+
+    params.put(JRParameter.REPORT_LOCALE, resolvedLocale);
+    params.put(JRParameter.REPORT_RESOURCE_BUNDLE,
+        loadBundle("physicalInventory", resolvedLocale));
+    params.put("subReportResourceBundle",
+        loadBundle("physicalinventoryLines", resolvedLocale));
     params.put("subreport", jasperReportService.createCustomizedPhysicalInventoryLineSubreport());
 
     return params;
