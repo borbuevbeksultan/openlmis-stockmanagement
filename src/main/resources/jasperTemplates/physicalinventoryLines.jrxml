@@ -123,7 +123,7 @@
                         ($P{showInDoses}
                             ? $P{decimalFormat}.format($V{quantitySumValue}).toString()
                             : ($V{quantitySumValue} / ($F{netContent} == null ? 1 : $F{netContent}))
-                              + " (" + $R{label.quantity.prefix}
+                              + " (" + $R{label.quantity.prefix, fontName=DejaVu Sans, pdfFontName=DejaVuSans.ttf}
                               + ($V{quantitySumValue} % ($F{netContent} == null ? 1 : $F{netContent})) + ")"
                         )
                     ]]></textFieldExpression>
@@ -139,7 +139,7 @@
                         ($P{showInDoses}
                             ? $P{decimalFormat}.format($V{sohSumValue}).toString()
                             : ($V{sohSumValue} / ($F{netContent} == null ? 1 : $F{netContent}))
-                              + " (" + $R{label.quantity.prefix}
+                              + " (" + $R{label.quantity.prefix, fontName=DejaVu Sans, pdfFontName=DejaVuSans.ttf}
                               + ($V{sohSumValue} % ($F{netContent} == null ? 1 : $F{netContent})) + ")"
                         )
                     ]]></textFieldExpression>

@@ -102,7 +102,7 @@
             <printWhenExpression><![CDATA[new Boolean($V{PAGE_NUMBER}.intValue() == 1)]]></printWhenExpression>
             <textField>
                 <reportElement x="10" y="0" width="30" height="10" uuid="d88076e4-ce9f-4886-a172-855275a4a5e7"/>
-                <textElement><font size="8"/></textElement>
+                <textElement><font fontName="DejaVu Sans" pdfFontName="DejaVuSans.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true" size="8"/></textElement>
                 <textFieldExpression><![CDATA[$R{label.facility} + ":"]]></textFieldExpression>
             </textField>
             <textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
@@ -114,7 +114,7 @@
             </textField>
             <textField>
                 <reportElement x="10" y="20" width="55" height="10" uuid="e70d1a9b-4bcc-460c-8ffe-c238d8d4e9af"/>
-                <textElement><font size="8"/></textElement>
+                <textElement><font fontName="DejaVu Sans" pdfFontName="DejaVuSans.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true" size="8"/></textElement>
                 <textFieldExpression><![CDATA[$R{label.facilityCode} + ":"]]></textFieldExpression>
             </textField>
             <textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
@@ -126,17 +126,17 @@
             </textField>
             <textField>
                 <reportElement x="160" y="0" width="40" height="10" uuid="f932b782-290f-45d4-9fdf-f2cc21d3088c"/>
-                <textElement><font size="8"/></textElement>
+                <textElement><font fontName="DejaVu Sans" pdfFontName="DejaVuSans.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true" size="8"/></textElement>
                 <textFieldExpression><![CDATA[$R{label.program} + ":"]]></textFieldExpression>
             </textField>
             <textField isStretchWithOverflow="true" isBlankWhenNull="true">
                 <reportElement x="210" y="0" width="90" height="10" uuid="090f268a-9013-48d7-bf4c-2d082ce82426"/>
-                <textElement><font size="8"/></textElement>
+                <textElement><font fontName="DejaVu Sans" pdfFontName="DejaVuSans.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true" size="8"/></textElement>
                 <textFieldExpression><![CDATA[$F{program}.getName()]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="490" y="0" width="40" height="10" uuid="f233a52e-358f-492e-972b-5893cca24c7f"/>
-                <textElement><font size="8"/></textElement>
+                <textElement><font fontName="DejaVu Sans" pdfFontName="DejaVuSans.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true" size="8"/></textElement>
                 <textFieldExpression><![CDATA[$R{label.soh} + ":"]]></textFieldExpression>
             </textField>
             <textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
@@ -148,32 +148,32 @@
             </textField>
             <textField>
                 <reportElement x="160" y="20" width="70" height="10" uuid="dbb8c60d-f18c-4662-82a9-1469ba5ee29b"/>
-                <textElement><font size="8"/></textElement>
+                <textElement><font fontName="DejaVu Sans" pdfFontName="DejaVuSans.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true" size="8"/></textElement>
                 <textFieldExpression><![CDATA[$R{label.programCode} + ":"]]></textFieldExpression>
             </textField>
             <textField isStretchWithOverflow="true" isBlankWhenNull="true">
                 <reportElement x="230" y="20" width="90" height="10" uuid="1155efb4-d80b-4867-bc2c-4708e21299cb"/>
-                <textElement><font size="8"/></textElement>
+                <textElement><font fontName="DejaVu Sans" pdfFontName="DejaVuSans.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true" size="8"/></textElement>
                 <textFieldExpression><![CDATA[$F{program}.getCode()]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="330" y="20" width="60" height="10" uuid="36cd07bc-b3ce-4e51-b8b1-0cab5457bdd2"/>
-                <textElement><font size="8"/></textElement>
+                <textElement><font fontName="DejaVu Sans" pdfFontName="DejaVuSans.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true" size="8"/></textElement>
                 <textFieldExpression><![CDATA[$R{label.productCode} + ":"]]></textFieldExpression>
             </textField>
             <textField isStretchWithOverflow="true" isBlankWhenNull="true">
                 <reportElement x="400" y="20" width="90" height="10" uuid="86e1db6a-c030-42b4-be86-55aa8a13bffd"/>
-                <textElement><font size="8"/></textElement>
+                <textElement><font fontName="DejaVu Sans" pdfFontName="DejaVuSans.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true" size="8"/></textElement>
                 <textFieldExpression><![CDATA[$F{orderable}.getProductCode()]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="330" y="0" width="40" height="10" uuid="f2a68d39-80e0-4c02-a15e-0b1f7ec1e991"/>
-                <textElement><font size="8"/></textElement>
+                <textElement><font fontName="DejaVu Sans" pdfFontName="DejaVuSans.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true" size="8"/></textElement>
                 <textFieldExpression><![CDATA[$R{label.product} + ":"]]></textFieldExpression>
             </textField>
             <textField isStretchWithOverflow="true" isBlankWhenNull="true">
                 <reportElement x="370" y="0" width="90" height="10" uuid="91c74f77-e92c-4d01-a5c3-39c827cfc9ff"/>
-                <textElement><font size="8"/></textElement>
+                <textElement><font fontName="DejaVu Sans" pdfFontName="DejaVuSans.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true" size="8"/></textElement>
                 <textFieldExpression><![CDATA[$F{orderable}.getFullProductName()]]></textFieldExpression>
             </textField>
             <textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
@@ -189,21 +189,21 @@
                 <reportElement x="10" y="40" width="55" height="10" uuid="4024885e-f119-4a2f-b74c-98624c2ebb3d">
                     <printWhenExpression><![CDATA[$P{hasLot}]]></printWhenExpression>
                 </reportElement>
-                <textElement><font size="8"/></textElement>
+                <textElement><font fontName="DejaVu Sans" pdfFontName="DejaVuSans.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true" size="8"/></textElement>
                 <textFieldExpression><![CDATA[$R{label.lotNumber} + ":"]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="160" y="40" width="70" height="10" uuid="c8c868e7-79a6-4fd7-af28-8bb754be0c2d">
                     <printWhenExpression><![CDATA[$P{hasLot}]]></printWhenExpression>
                 </reportElement>
-                <textElement><font size="8"/></textElement>
+                <textElement><font fontName="DejaVu Sans" pdfFontName="DejaVuSans.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true" size="8"/></textElement>
                 <textFieldExpression><![CDATA[$R{label.expiryDate} + ":"]]></textFieldExpression>
             </textField>
             <textField isStretchWithOverflow="true" isBlankWhenNull="true">
                 <reportElement x="230" y="40" width="90" height="10" uuid="ac3309ea-58c8-4931-a9c2-8af93b151edb">
                     <printWhenExpression><![CDATA[$P{hasLot}]]></printWhenExpression>
                 </reportElement>
-                <textElement><font size="8"/></textElement>
+                <textElement><font fontName="DejaVu Sans" pdfFontName="DejaVuSans.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true" size="8"/></textElement>
                 <textFieldExpression><![CDATA[DateTimeFormatter.ofPattern($P{dateFormat}).format(LocalDate.parse($F{lot}.getExpirationDate().toString()))]]></textFieldExpression>
             </textField>
         </band>
